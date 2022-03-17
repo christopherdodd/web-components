@@ -2,24 +2,31 @@ class WebComponent extends HTMLElement {
   constructor() {
     super();
 
-    // 1. By simply setting the innerHTML
+    if(this.hasAttribute('text')) {
+      this.innerTextContent = this.getAttribute('text');
+    }
+
+    // NOTE: Attributes are not the same as properties
+    // If I am to console.log this.text, it will come up undefined
+    console.log('this.text =', this.text); 
+
     this.innerHTML = `
       <div>
-        <span>This is a web component</span>
+        <span>${this.innerTextContent}</span>
+      </div>  
+    `;
+  }
+
+  attributeChangedCallback(attrName, oldValue, newValue) {
+    if(attrName == 'text') this.innerTextContent = this.innerHTML = `
+      <div>
+        <span>${newValue}</span>
       </div>
     `;
+  }
 
-    // 2. By creating elements and add them to the DOM
-    const div = document.createElement('div');
-    const span = document.createElement('span');
-    span.innerHTML = "This is a web component";
-    div.appendChild(span);
-    this.appendChild(div);
-
-    // 3. Parse a HTML string
-    const html = `<div><span>This is a web component</span></div>`
-    const innerHTML = new DOMParser().parseFromString(html, 'text/html').body.innerHTML;
-    this.innerHTML = innerHTML;
+  static get observedAttributes() {
+    return ['text'];
   }
 }
 
