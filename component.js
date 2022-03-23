@@ -22,7 +22,7 @@ class WebComponent extends HTMLElement {
   }
 
   attributeChangedCallback(attrName, oldValue, newValue) {
-    if(attrName == 'text') this.innerTextContent = this.innerHTML = `
+    if(attrName == 'text') this.innerHTML = `
       <div>
         <span>${newValue}</span>
         <button>Trigger Special Event</button>
