@@ -5,13 +5,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Custom Element</title>
+    <style>
+        span {
+            color: red;
+        }
+    </style>
 </head>
 <body>
-    <web-component text="This is a web component"></web-component>
+    <web-component text="This is a web component">
+        <span>This span has been slotted in</span>
+    </web-component>
     <script src="component.js"></script>
-    <script>
-        const webComponent = document.querySelector('web-component');
-        webComponent.addEventListener('special', () => console.log('The special event has been triggered!'));
-    </script>
 </body>
 </html>

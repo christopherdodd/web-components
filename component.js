@@ -9,23 +9,21 @@ class WebComponent extends HTMLElement {
       this.innerTextContent = this.getAttribute('text');
     }
 
-    this.innerHTML = `
+    this.attachShadow({ mode: 'open' });
+
+    this.shadowRoot.innerHTML = `
       <div>
         <span>${this.innerTextContent}</span>
-        <button>Trigger Special Event</button>
+        <slot></slot>
       </div>  
     `;
   }
 
-  connectedCallback() {
-    this.querySelector('button').addEventListener('click', this.triggerSpecialEvent.bind(this));
-  }
-
   attributeChangedCallback(attrName, oldValue, newValue) {
-    if(attrName == 'text') this.innerTextContent = this.innerHTML = `
+    if(attrName == 'text') this.shadowRoot.innerHTML = `
       <div>
         <span>${newValue}</span>
-        <button>Trigger Special Event</button>
+        <slot></slot>
       </div>
     `;
   }
@@ -38,10 +36,6 @@ class WebComponent extends HTMLElement {
     return ['text'];
   }
 
-  triggerSpecialEvent() {
-    const specialEvent = new Event('special');
-    this.dispatchEvent(specialEvent);
-  }
 }
 
 customElements.define('web-component', WebComponent);
