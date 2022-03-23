@@ -8,6 +8,15 @@
 </head>
 <body>
     <web-component text="This is a web component"></web-component>
+    <div></div>
+    <script>
+        const webComponent = document.querySelector('web-component');
+        setTimeout(() => {
+            document.body.removeChild(webComponent);
+            document.querySelector('div').appendChild(webComponent);
+        }, 1000);
+        
+    </script>
     <script src="component.js"></script>
 </body>
 </html>
