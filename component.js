@@ -12,6 +12,20 @@ class WebComponent extends HTMLElement {
     this.attachShadow({ mode: 'open' });
 
     this.shadowRoot.innerHTML = `
+      <style>
+        :host {
+          font-weight: bold;
+        }
+        span {
+          /* background-color: black; */
+          background-color: var(--bg-color);
+          color: white;
+        }
+        ::slotted(span) {
+          /* background-color: black; */
+          background-color: var(--bg-color);
+        }
+      </style>
       <div>
         <span>${this.innerTextContent}</span>
         <slot></slot>
@@ -20,12 +34,7 @@ class WebComponent extends HTMLElement {
   }
 
   attributeChangedCallback(attrName, oldValue, newValue) {
-    if(attrName == 'text') this.shadowRoot.innerHTML = `
-      <div>
-        <span>${newValue}</span>
-        <slot></slot>
-      </div>
-    `;
+    if(attrName == 'text') this.shadowRoot.querySelector('span').innerHTML = newValue;
   }
 
   disconnectedCallback() {
