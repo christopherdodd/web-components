@@ -12,35 +12,35 @@ class WebComponent extends HTMLElement {
     this.innerHTML = `
       <div>
         <span>${this.innerTextContent}</span>
+        <button>Trigger Special Event</button>
       </div>  
     `;
-
-    console.log(this.innerHTML);
-    console.log('constructor');
   }
 
-  // 2. Connected Callback - When the element is attached from the DOM
   connectedCallback() {
-    console.log('connected callback');
+    this.querySelector('button').addEventListener('click', this.triggerSpecialEvent.bind(this));
   }
 
-  // 3. Attribute Changed Callback - checking if an attribute has changed
   attributeChangedCallback(attrName, oldValue, newValue) {
     if(attrName == 'text') this.innerTextContent = this.innerHTML = `
       <div>
         <span>${newValue}</span>
+        <button>Trigger Special Event</button>
       </div>
     `;
   }
 
-  // 4. Disconnected Callback - When the element is dettached from the DOM
-  // Useful for performing cleanup
   disconnectedCallback() {
     console.log('web component has been removed');
   }
 
   static get observedAttributes() {
     return ['text'];
+  }
+
+  triggerSpecialEvent() {
+    const specialEvent = new Event('special');
+    this.dispatchEvent(specialEvent);
   }
 }
 

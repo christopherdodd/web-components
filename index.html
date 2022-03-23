@@ -8,15 +8,10 @@
 </head>
 <body>
     <web-component text="This is a web component"></web-component>
-    <div></div>
+    <script src="component.js"></script>
     <script>
         const webComponent = document.querySelector('web-component');
-        setTimeout(() => {
-            document.body.removeChild(webComponent);
-            document.querySelector('div').appendChild(webComponent);
-        }, 1000);
-        
+        webComponent.addEventListener('special', () => console.log('The special event has been triggered!'));
     </script>
-    <script src="component.js"></script>
 </body>
 </html>
