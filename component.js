@@ -26,7 +26,7 @@ class WebComponent extends HTMLElement {
 
   // 3. Attribute Changed Callback - checking if an attribute has changed
   attributeChangedCallback(attrName, oldValue, newValue) {
-    if(attrName == 'text') this.innerTextContent = this.innerHTML = `
+    if(attrName == 'text') this.innerHTML = `
       <div>
         <span>${newValue}</span>
       </div>
