@@ -21,22 +21,11 @@ class WebComponent extends HTMLElement {
           /* background-color: black; */
           background-color: var(--bg-color);
         }
-      </style>
-      <div>
-        <div>
-          <slot name="slot-1"></slot>
-        </div>
-        <div>
-         <slot name="slot-2"></slot>
-        </div>
-      </div>  
+      </style>  
     `;
-
-    const slots = this.shadowRoot.querySelectorAll('slot');
-    // console.dir(slots[0]);
-    slots[0].addEventListener('slotchange', event => {
-      console.dir(slots[0]);
-    })
+    // const template = document.querySelector('#template').content.cloneNode(true);
+    const template = this.querySelector('template').content.cloneNode(true);
+    this.shadowRoot.appendChild(template);
   }
 
   disconnectedCallback() {
